@@ -16,6 +16,9 @@ Metrics/MethodLength:
 Style/ExpandPathArguments:
   Enabled: false
 
+Metrics/BlockLength:
+  Max: 30
+
 AllCops:
   Exclude:
     - config/**/*
