@@ -17,7 +17,7 @@ Style/ExpandPathArguments:
   Enabled: false
 
 Metrics/BlockLength:
-  Max: 30
+  Enabled: false
 
 AllCops:
   Exclude:

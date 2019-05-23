@@ -1,6 +1,10 @@
 class QuestionsController < ApplicationController
   before_action :load_question, only: :show
 
+  def index
+    @questions = Question.all
+  end
+
   def show; end
 
   def new
@@ -9,7 +13,11 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.create(question_params)
-    redirect_to @question if @question.save
+    if @question.save
+      redirect_to @question
+    else
+      render :new
+    end
   end
 
   private
