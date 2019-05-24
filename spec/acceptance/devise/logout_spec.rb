@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'User can logout' do
+feature 'Log out' do
   given(:user) { create(:user) }
 
   scenario 'Authorized user can logout' do

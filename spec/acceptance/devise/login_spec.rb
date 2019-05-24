@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'User can login' do
+feature 'Log in' do
   given(:user) { create(:user) }
 
   scenario 'A registered user is trying to login' do
