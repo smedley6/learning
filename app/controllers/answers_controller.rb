@@ -1,8 +1,9 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!
   before_action :load_question
 
   def create
-    @answer = @question.answers.create(answer_params)
+    @answer = @question.answers.create(answer_params.merge(user: current_user))
     redirect_to question_path(@question) if @answer.save
   end
 
