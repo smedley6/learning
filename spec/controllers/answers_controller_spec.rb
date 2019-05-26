@@ -13,7 +13,8 @@ RSpec.describe AnswersController, type: :controller do
           post :create,
                params: {
                  question_id: question,
-                 answer: attributes_for(:answer)
+                 answer: attributes_for(:answer),
+                 format: :js
                }
         end.to change(Answer, :count).by(1)
       end
@@ -24,9 +25,10 @@ RSpec.describe AnswersController, type: :controller do
           post :create,
                params: {
                  question_id: question,
-                 answer: attributes_for(:invalid_answer)
+                 answer: attributes_for(:invalid_answer),
+                 format: :js
                }
-        end.to_not change(Answer, :count)
+        end.to_not change(question.answers, :count)
       end
     end
   end

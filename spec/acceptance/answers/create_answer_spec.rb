@@ -4,7 +4,7 @@ feature 'Create answer' do
   let(:user) { create(:user) }
   let(:question) { create(:question) }
 
-  scenario 'Only authorized user can answer' do
+  scenario 'Only authorized user can answer', js: true do
     login(user)
     visit question_path(question)
 
@@ -12,6 +12,7 @@ feature 'Create answer' do
     click_on 'Create'
 
     within '.answers' do
+      expect(current_path).to eq question_path(question)
       expect(page).to have_content 'test answer'
     end
   end
