@@ -5,7 +5,7 @@ feature 'Delete question' do
   given(:other) { create(:user) }
   given(:question) { create(:question, user: user) }
 
-  scenario 'Author can destroy own question' do
+  scenario 'Author can destroy his question' do
     login(user)
     visit question_path(question)
 
