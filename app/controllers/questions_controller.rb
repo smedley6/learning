@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :load_question, only: :show
+  before_action :load_question, only: %i[show destroy]
 
   def index
     @questions = Question.all
@@ -16,8 +16,19 @@ class QuestionsController < ApplicationController
     @question = current_user.questions.create(question_params)
     if @question.save
       redirect_to @question
+      flash[:alert] = 'Question successfully created.'
     else
       render :new
+    end
+  end
+
+  def destroy
+    if current_user.author_of?(@question)
+      @question.destroy
+      flash[:alert] = 'Question successfully deleted.'
+      redirect_to questions_path
+    else
+      redirect_to @question
     end
   end
 

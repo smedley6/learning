@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
   let(:user) { create(:user) }
+  let(:question) { create(:question) }
 
   describe 'get #index' do
     let(:questions) { create_list(:question, 2) }
@@ -16,7 +17,6 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'get #show' do
-    let(:question) { create(:question) }
     before { get :show, params: { id: question } }
 
     it 'assigns @question' do
@@ -43,22 +43,38 @@ RSpec.describe QuestionsController, type: :controller do
     login_user
 
     context 'valid attributes' do
-      scenario 'a new question saves in the database' do
+      it 'a new question saves in the database' do
         expect do
           post :create, params: { question: attributes_for(:question) }
         end.to change(Question, :count).by(1)
       end
-      scenario 'redirect to question' do
+      it 'redirect to question' do
         post :create, params: { question: attributes_for(:question) }
         expect(response).to redirect_to question_path(assigns(:question))
       end
     end
     context 'invalid attributes' do
-      scenario 'question not saved in the database' do
+      it 'question not saved in the database' do
         expect do
           post :create, params: { question: attributes_for(:invalid_question) }
         end.to_not change(Question, :count)
       end
+    end
+  end
+
+  describe 'delete #destroy' do
+    login_user
+    before { @user.questions << question }
+
+    it 'question deleted' do
+      expect do
+        delete :destroy, params: { id: question }
+      end.to change(Question, :count).by(-1)
+    end
+
+    it 'redirect to questions' do
+      delete :destroy, params: { id: question }
+      expect(response).to redirect_to questions_path
     end
   end
 end

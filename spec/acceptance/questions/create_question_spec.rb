@@ -11,6 +11,7 @@ feature 'Create question' do
     fill_in 'Body', with: 'test body'
     click_on 'Create'
 
+    expect(page).to have_content 'Question successfully created.'
     expect(page).to have_content 'test title'
   end
 
