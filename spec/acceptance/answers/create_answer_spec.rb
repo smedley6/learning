@@ -22,4 +22,15 @@ feature 'Create answer' do
 
     expect(page).to_not have_selector 'textarea'
   end
+
+  scenario 'User try to create invalid answer', js: true do
+    login(user)
+    visit question_path(question)
+
+    click_on 'Create'
+
+    within '.answer-create > .errors' do
+      expect(page).to have_content 'Body can\'t be blank'
+    end
+  end
 end

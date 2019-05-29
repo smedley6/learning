@@ -4,5 +4,7 @@
 .answers
   = render @question.answers
 
-- if current_user
-  = render 'answers/form'
+.answer-create
+  .errors
+  - if current_user
+    = render 'answers/form'
