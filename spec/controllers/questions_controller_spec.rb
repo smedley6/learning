@@ -62,6 +62,23 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
+  describe 'patch #update' do
+    login_user
+    before { @user.questions << question }
+
+    it 'question update' do
+      patch :update, params: {
+        id: question,
+        question: { title: 'edited title', body: 'edited body' },
+        format: :js
+      }
+
+      question.reload
+      expect(question.title).to eq 'edited title'
+      expect(question.body).to eq 'edited body'
+    end
+  end
+
   describe 'delete #destroy' do
     login_user
     before { @user.questions << question }
