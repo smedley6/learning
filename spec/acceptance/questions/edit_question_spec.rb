@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 feature 'Edit question' do
-  let(:user) { create(:user) }
-  let(:other) { create(:user) }
-  let(:question) { create(:question) }
+  given(:user) { create(:user) }
+  given(:other) { create(:user) }
+  given(:question) { create(:question) }
 
   scenario 'Author can see edit form', js: true do
     login(user)

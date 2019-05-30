@@ -32,6 +32,22 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
+  describe 'patch #update' do
+    login_user
+    before { @user.answers << answer }
+
+    it 'update answer' do
+      patch :update,
+            params: {
+              question_id: question,
+              id: answer,
+              answer: { body: 'edited answer' },
+              format: :js
+            }
+      answer.reload
+      expect(answer.body).to eq 'edited answer'
+    end
+  end
   describe 'delete #destroy' do
     login_user
     before { @user.answers << answer }
