@@ -3,7 +3,7 @@
     = answer.body
 
   - if current_user&.author_of?(answer)
-    = link_to 'Delete', question_answer_path(@question, answer), method: :delete
+    = link_to 'Delete', question_answer_path(@question, answer), method: :delete, remote: true
     = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
 
   - if current_user&.author_of?(answer)
