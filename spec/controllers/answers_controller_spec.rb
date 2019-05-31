@@ -63,4 +63,20 @@ RSpec.describe AnswersController, type: :controller do
       end.to change(Answer, :count).by(-1)
     end
   end
+
+  describe 'put #accept' do
+    login_user
+    before { @user.questions << question }
+
+    it 'accepted answer' do
+      put :accept,
+          params: {
+            question_id: question.id,
+            id: answer,
+            format: :js
+          }
+      answer.reload
+      expect(answer.accepted).to eq true
+    end
+  end
 end

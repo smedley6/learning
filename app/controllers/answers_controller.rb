@@ -15,6 +15,10 @@ class AnswersController < ApplicationController
     @answer.destroy if current_user.author_of?(@answer)
   end
 
+  def accept
+    @answer.accept! if current_user.author_of?(@question)
+  end
+
   private
 
   def answer_params
